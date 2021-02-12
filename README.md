@@ -8,9 +8,9 @@ This is a simple weather app built to learn more about Progressive Web Apps (PWA
 
 It uses three APIS:
 
-1. Webcam: https://api.windy.com/webcams
-2. Weather: https://openweathermap.org/api/one-call-api
-3. Geocoding: https://opencagedata.com/
+1. Webcam: https://api.windy.com/webcams (Caching Strategy: Cache First for JSON, Stale While Revalidate for images)
+2. Weather: https://openweathermap.org/api/one-call-api (Caching Strategy: Network First)
+3. Geocoding: https://opencagedata.com/ (Caching strategy: Cache First)
 
 ## Where
 
@@ -18,12 +18,16 @@ Not currently deployed
 
 ## What's Next? TODO:
 
--   Make daily forecast pages
--   Responsive
--   PWA (push notifications, offline)
+- Make daily forecast pages
+- Responsive
+- PWA (push notifications, offline)
+- Make API
+- Sort dependencies and devDependencies
+- Uninstall unused workbox modules
 
 ### Misc / Self - Planning
 
-APP => SERVICE WORKER => SERVER  
- every on fetch: store user location  
- schedule push notifications using stored location (every hour?)
+Ability to save cities to be cached in background
+Cache responses for one day
+If nothing in cache, return error component
+Data, loading, cached states into store

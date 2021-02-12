@@ -1,5 +1,5 @@
 {
-  "name": "weather_pwa",
+  "name": "weather_frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -29,7 +29,8 @@
     "workbox-range-requests": "^5.1.4",
     "workbox-routing": "^5.1.4",
     "workbox-strategies": "^5.1.4",
-    "workbox-streams": "^5.1.4"
+    "workbox-streams": "^5.1.4",
+    "zustand": "^3.3.1"
   },
   "scripts": {
     "start": "craco start",
