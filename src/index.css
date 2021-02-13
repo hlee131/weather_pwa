@@ -3,43 +3,81 @@
 @tailwind utilities;
 
 @layer utilities {
+  /* Neumorphism styles */
+  .neu-tl-dr {
+    background-color: #f7feff;
+    box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+      -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+    @apply rounded-lg border border-white;
+  }
 
-    /* Neumorphism styles */
-    .neu-tl-dr {
-        background-color: #f7feff;
-        box-shadow: 
-        12px 12px 16px 0 rgba(0, 0, 0, 0.25),
-        -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
-        @apply rounded-lg border border-white;
+  .neu-t-d {
+    background-color: #f7feff;
+    box-shadow: 0px 12px 16px 0 rgba(0, 0, 0, 0.25),
+      0px -8px 12px 0 rgba(255, 255, 255, 0.3);
+    @apply rounded-lg border border-white;
+  }
+
+  .neu-tr-dl {
+    background-color: #f7feff;
+    box-shadow: -12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+      8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+    @apply rounded-lg border border-white;
+  }
+
+  /* Grid layout for mobile phones */
+  .grid-phone {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 0.2fr 0.7fr;
+    row-gap: 2%;
+  }
+
+  .pressed {
+    background-color: rgb(37, 99, 235);
+    color: white;
+  }
+
+  /* https://dev.to/xinnks/make-animated-content-placeholders-with-html-and-css-3ekn */
+  .load-gradient {
+    position: absolute;
+    left: -45%;
+    @apply h-28;
+    width: 45%;
+    background-image: linear-gradient(
+      to left,
+      rgba(251, 251, 251, 0.05),
+      rgba(251, 251, 251, 0.3),
+      rgba(251, 251, 251, 0.6),
+      rgba(251, 251, 251, 0.3),
+      rgba(251, 251, 251, 0.05)
+    );
+    background-image: -moz-linear-gradient(
+      to left,
+      rgba(251, 251, 251, 0.05),
+      rgba(251, 251, 251, 0.3),
+      rgba(251, 251, 251, 0.6),
+      rgba(251, 251, 251, 0.3),
+      rgba(251, 251, 251, 0.05)
+    );
+    background-image: -webkit-linear-gradient(
+      to left,
+      rgba(251, 251, 251, 0.05),
+      rgba(251, 251, 251, 0.3),
+      rgba(251, 251, 251, 0.6),
+      rgba(251, 251, 251, 0.3),
+      rgba(251, 251, 251, 0.05)
+    );
+    animation: loading 1s infinite;
+    z-index: 45;
+  }
+
+  @keyframes loading {
+    0% {
+      left: -45%;
     }
-
-    .neu-t-d {
-        background-color: #f7feff;
-        box-shadow: 
-        0px 12px 16px 0 rgba(0, 0, 0, 0.25),
-        0px -8px 12px 0 rgba(255, 255, 255, 0.3);
-        @apply rounded-lg border border-white;
+    100% {
+      left: 100%;
     }
-
-    .neu-tr-dl {
-        background-color: #f7feff;
-        box-shadow: 
-        -12px 12px 16px 0 rgba(0, 0, 0, 0.25),
-        8px -8px 12px 0 rgba(255, 255, 255, 0.3);
-        @apply rounded-lg border border-white;
-    }
-
-    /* Grid layout for mobile phones */
-    .grid-phone {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 0.2fr 0.7fr;
-        row-gap: 2%;
-    }
-
-    .pressed {
-        background-color: rgb(37, 99, 235);
-        color: white;
-    }
-
+  }
 }
