@@ -71,6 +71,7 @@ export default function SearchBar({ setLocation }) {
         placeholder={`Current Location: ${verbose}`}
         ref={input}
       ></input>
+      {/* TODO: Moving with animation */}
       <button
         className="rounded absolute border border-blue-600 p-2 top-0 text-blue-600 right-0 outline-none hover:text-white"
         onClick={handleClick}

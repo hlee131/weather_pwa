@@ -5,7 +5,6 @@ import epochToHuman from "../../hooks/epochToHuman";
 import useStore from "../../hooks/useStore";
 
 export default function FutureHr() {
-  // TODO: Scale y-axis
   const [temps, setTemps] = useState([]);
   const [rainProbs, setRainProbs] = useState([]);
   const [active, setActive] = useState("rain");
@@ -51,6 +50,19 @@ export default function FutureHr() {
             ],
           },
           options: {
+            scales: {
+              yAxes:
+                active === "rain"
+                  ? [
+                      {
+                        ticks: {
+                          beginAtZero: true,
+                          max: 100,
+                        },
+                      },
+                    ]
+                  : [],
+            },
             title: {
               display: true,
               text: "Next 12 Hours",
@@ -65,6 +77,17 @@ export default function FutureHr() {
   const onClick = (active) => {
     setActive(active);
     chart.data.datasets[0].data = active === "rain" ? rainProbs : temps;
+    chart.options.scales.yAxes =
+      active === "rain"
+        ? [
+            {
+              ticks: {
+                beginAtZero: true,
+                max: 100,
+              },
+            },
+          ]
+        : [];
     chart.update();
   };
 

@@ -45,31 +45,28 @@ const cachedResponsePlugin = {
 
 // // TODO: Images are opaque, cant cache images automatically
 // // https://stackoverflow.com/questions/39109789/what-limitations-apply-to-opaque-responses
-// const autoCacheImagesPlugin = {
-//   fetchDidSucceed: async ({ response }) => {
-//     console.log(response);
-//     let linksOfCams = [];
-//     const imageCache = await window.caches.open("images");
-//     response.json().then((data) => {
-//       for (let i = 0; i < 3; i++) {
-//         imageCache.keys().then((keys) => {
-//           let currentLink = data.result.webcams[i].image.current.preview;
-//           if (!keys.includes(currentLink)) {
-//             linksOfCams.push(currentLink);
-//           }
-//         });
-//       }
-//     });
-//     await imageCache.addAll(linksOfCams);
-//     return response;
-//   },
-// };
+const autoCacheImagesPlugin = {
+  fetchDidSucceed: async ({ response }) => {
+    console.log(response);
+    const imageCache = await self.caches.open("images");
+    response.json().then((data) => {
+      let webcams = data.result.webcams;
+      webcams.forEach((webcam) => {
+        const req = new Request(webcam.image.current.preview, {
+          mode: "no-cors",
+        });
+        fetch(req).then((res) => imageCache.put(req, res));
+      });
+      return response;
+    });
+  },
+};
 
 // Caches png
 registerRoute(
   // Add in any other file extensions or routing criteria as needed.
   ({ url }) => url.pathname.endsWith(".png") || url.pathname.endsWith(".jpg"), // Customize this strategy as needed, e.g., by changing to CacheFirst.
-  new StaleWhileRevalidate({
+  new NetworkFirst({
     cacheName: "images",
     plugins: [
       // Ensure that once this runtime cache reaches a maximum size the
@@ -106,6 +103,7 @@ registerRoute(
         // Max entries: 30 cities
         maxEntries: 30,
       }),
+      autoCacheImagesPlugin,
     ],
   })
 );
