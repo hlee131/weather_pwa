@@ -47,18 +47,20 @@ const cachedResponsePlugin = {
 // // https://stackoverflow.com/questions/39109789/what-limitations-apply-to-opaque-responses
 const autoCacheImagesPlugin = {
   fetchDidSucceed: async ({ response }) => {
-    console.log(response);
     const imageCache = await self.caches.open("images");
-    response.json().then((data) => {
-      let webcams = data.result.webcams;
-      webcams.forEach((webcam) => {
-        const req = new Request(webcam.image.current.preview, {
-          mode: "no-cors",
+    response
+      .clone()
+      .json()
+      .then((data) => {
+        let webcams = data.result.webcams;
+        webcams.forEach((webcam) => {
+          const req = new Request(webcam.image.current.preview, {
+            mode: "no-cors",
+          });
+          fetch(req).then((res) => imageCache.put(req, res));
         });
-        fetch(req).then((res) => imageCache.put(req, res));
       });
-      return response;
-    });
+    return response;
   },
 };
 
