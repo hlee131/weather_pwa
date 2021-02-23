@@ -99,7 +99,7 @@ export default function Webcam({ location }) {
 
   return loading ? (
     <div className="neu-t-d">
-      <div className="w-full h-28 bg-gray-400">
+      <div className="relative overflow-hidden rounded-t-lg w-full h-28 bg-gray-400">
         <div className="load-gradient"></div>
       </div>
       <p className="text-center">Image Loading...</p>

@@ -11,13 +11,7 @@ import { clientsClaim, skipWaiting } from "workbox-core";
 import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
-import {
-  StaleWhileRevalidate,
-  NetworkFirst,
-  CacheFirst,
-} from "workbox-strategies";
-import * as navigationPreload from "workbox-navigation-preload";
-import { responsesAreSame } from "workbox-broadcast-update";
+import { NetworkFirst, CacheFirst } from "workbox-strategies";
 
 clientsClaim();
 skipWaiting();
@@ -43,8 +37,6 @@ const cachedResponsePlugin = {
   },
 };
 
-// // TODO: Images are opaque, cant cache images automatically
-// // https://stackoverflow.com/questions/39109789/what-limitations-apply-to-opaque-responses
 const autoCacheImagesPlugin = {
   fetchDidSucceed: async ({ response }) => {
     const imageCache = await self.caches.open("images");
