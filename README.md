@@ -15,19 +15,3 @@ It uses three APIS:
 ## Where
 
 Not currently deployed
-
-## What's Next? TODO:
-
-- Make daily forecast pages
-- Responsive
-- PWA (push notifications, offline)
-- Make API
-- Sort dependencies and devDependencies
-- Uninstall unused workbox modules
-
-### Misc / Self - Planning
-
-Ability to save cities to be cached in background
-Cache responses for one day
-If nothing in cache, return error component
-Data, loading, cached states into store
