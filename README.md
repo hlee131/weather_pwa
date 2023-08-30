@@ -1,20 +1,12 @@
 # Weather Progressive Web App
+This is a basic weather app that was used to learn more about Progressive Web Apps. It utilizes data from 3 APIs: 
 
-## What
+1. Webcam images (windy.com)
+2. Weather data (open-meteo.com)
+3. Geocoding (opencagedata.com)
 
-This is a simple weather app built to learn more about Progressive Web Apps (PWAs)
-
-## How
-
-It uses three APIS:
-
-1. Webcam: https://api.windy.com/webcams (Caching Strategy: Cache First for JSON, Stale While Revalidate for images)
-2. Weather: https://openweathermap.org/api/one-call-api (Caching Strategy: Network First)
-3. Geocoding: https://opencagedata.com/ (Caching strategy: Cache First)
-
-## Where
-
-Not currently deployed
+The frontend of the application was built with concepts from neumorphism in mind and implemented with React and TailwindCSS. Additionally, 
+react-spring was used to integrate animations and transitions into various elements in the application to improve user experience. 
 
 ## Demo
 
