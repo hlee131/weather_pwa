@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Chart from "chart.js";
 
-import epochToHuman from "../../hooks/epochToHuman";
 import useStore from "../../hooks/useStore";
 
 export default function FutureHr() {
@@ -18,18 +17,9 @@ export default function FutureHr() {
 
   useEffect(() => {
     if (!loading) {
-      let times = [];
-      let rain = [];
-      let temps = [];
-      for (let i = 1; i < 13; i++) {
-        let hr = data.hourly[i];
-        times.push(epochToHuman(hr.dt, data.timezone_offset));
-        rain.push(hr.pop * 100);
-        temps.push(hr.temp);
-      }
-      setTemps(temps);
-      setRainProbs(rain);
-      setTimes(times);
+      setTemps(data.hourly.temperature_2m.slice(1));
+      setRainProbs(data.hourly.rain.slice(1));
+      setTimes(data.hourly.time.slice(1).map(dtStr => new Date(dtStr).getHours()));
     }
   }, [loading, data]);
 
@@ -54,13 +44,12 @@ export default function FutureHr() {
               yAxes:
                 active === "rain"
                   ? [
-                      {
-                        ticks: {
-                          beginAtZero: true,
-                          max: 100,
-                        },
+                    {
+                      ticks: {
+                        beginAtZero: true,
                       },
-                    ]
+                    },
+                  ]
                   : [],
             },
             title: {
@@ -80,13 +69,12 @@ export default function FutureHr() {
     chart.options.scales.yAxes =
       active === "rain"
         ? [
-            {
-              ticks: {
-                beginAtZero: true,
-                max: 100,
-              },
+          {
+            ticks: {
+              beginAtZero: true,
             },
-          ]
+          },
+        ]
         : [];
     chart.update();
   };
@@ -100,17 +88,15 @@ export default function FutureHr() {
       <canvas id="chart" ref={chartRef} className="max-w-full" />
       <div className="absolute min-w-full top-0 p-1 flex items-center justify-around">
         <button
-          className={`text-blue-600 text-sm mr-2 p-1 pt-0 rounded-md border border-blue-600 ${
-            active === "rain" ? "pressed" : ""
-          }`}
+          className={`text-blue-600 text-sm mr-2 p-1 pt-0 rounded-md border border-blue-600 ${active === "rain" ? "pressed" : ""
+            }`}
           onClick={() => onClick("rain")}
         >
           Rain
         </button>
         <button
-          className={`text-blue-600 text-sm ml-2 p-1 pt-0 rounded-md border border-blue-600 ${
-            active === "temp" ? "pressed" : ""
-          }`}
+          className={`text-blue-600 text-sm ml-2 p-1 pt-0 rounded-md border border-blue-600 ${active === "temp" ? "pressed" : ""
+            }`}
           onClick={() => onClick("temp")}
         >
           Temp

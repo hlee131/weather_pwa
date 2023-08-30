@@ -72,7 +72,7 @@ registerRoute(
 
 // Network First For Weather
 registerRoute(
-  new RegExp(/https:\/\/api\.openweathermap\.org\/.+/),
+  new RegExp(/https:\/\/api\.open-meteo\.com\/.+/),
   new NetworkFirst({
     cacheName: "weather-cache",
     plugins: [
